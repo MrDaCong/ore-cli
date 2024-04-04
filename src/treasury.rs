@@ -1,4 +1,4 @@
-use solana_client::nonblocking::rpc_client::RpcClient;
+use solana_client::nonblocking::websocket::WebSocketRpcClient;
 use solana_sdk::commitment_config::CommitmentConfig;
 
 use crate::{
@@ -9,7 +9,7 @@ use crate::{
 impl Miner {
     pub async fn treasury(&self) {
         let client =
-            RpcClient::new_with_commitment(self.cluster.clone(), CommitmentConfig::confirmed());
+            WebSocketRpcClient::new_with_commitment(self.cluster.clone(), CommitmentConfig::confirmed());
         if let Ok(Some(treasury_tokens)) = client.get_token_account(&treasury_tokens_pubkey()).await
         {
             let treasury = get_treasury(self.cluster.clone()).await;
