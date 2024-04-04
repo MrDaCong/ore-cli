@@ -33,9 +33,8 @@ struct Args {
         long,
         value_name = "NETWORK_URL",
         help = "Network address of your RPC provider",
-        default_value = "https://api.mainnet-beta.solana.com"
     )]
-    rpc: String,
+    WebSocket: String,
 
     #[arg(
         long,
@@ -162,7 +161,7 @@ struct UpdateDifficultyArgs {}
 async fn main() {
     // Initialize miner.
     let args = Args::parse();
-    let cluster = args.rpc;
+    let cluster = args.WebSocket;
     let miner = Arc::new(Miner::new(cluster.clone(), args.priority_fee, args.keypair));
 
     // Execute user command.
