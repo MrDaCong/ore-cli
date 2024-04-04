@@ -1,4 +1,4 @@
-use solana_client::nonblocking::rpc_client::RpcClient;
+use solana_client::nonblocking::websocket::WebSocketRpcClient;
 use solana_sdk::{
     commitment_config::CommitmentConfig, compute_budget::ComputeBudgetInstruction,
     signature::Signer,
@@ -12,7 +12,7 @@ impl Miner {
         let signer = self.signer();
         let proof_address = proof_pubkey(signer.pubkey());
         let client =
-            RpcClient::new_with_commitment(self.cluster.clone(), CommitmentConfig::confirmed());
+            WebSocketRpcClient::new_with_commitment(self.cluster.clone(), CommitmentConfig::confirmed());
         if client.get_account(&proof_address).await.is_ok() {
             return;
         }
