@@ -5,7 +5,7 @@ use std::{
 
 use solana_client::{
     client_error::{ClientError, ClientErrorKind, Result as ClientResult},
-    nonblocking::rpc_client::RpcClient,
+    nonblocking::websocket::WebSocketRpcClient,
     rpc_config::RpcSendTransactionConfig,
 };
 use solana_program::instruction::Instruction;
@@ -31,7 +31,7 @@ impl Miner {
         let mut stdout = stdout();
         let signer = self.signer();
         let client =
-            RpcClient::new_with_commitment(self.cluster.clone(), CommitmentConfig::confirmed());
+            WebSocketRpcClient::new_with_commitment(self.cluster.clone(), CommitmentConfig::confirmed());
 
         // Return error if balance is zero
         let balance = client
