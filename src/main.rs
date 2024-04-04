@@ -34,7 +34,7 @@ struct Args {
         value_name = "NETWORK_URL",
         help = "Network address of your RPC provider",
     )]
-    WebSocket: String,
+    websocket: String,
 
     #[arg(
         long,
@@ -161,7 +161,7 @@ struct UpdateDifficultyArgs {}
 async fn main() {
     // Initialize miner.
     let args = Args::parse();
-    let cluster = args.WebSocket;
+    let cluster = args.websocket;
     let miner = Arc::new(Miner::new(cluster.clone(), args.priority_fee, args.keypair));
 
     // Execute user command.
